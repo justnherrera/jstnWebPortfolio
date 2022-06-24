@@ -738,4 +738,7 @@ h3.my-proffession {
         flex: 0 0 100%;
         max-width: 100%;
     }
+    .section.open {
+        left: 0;
+    }
 }
