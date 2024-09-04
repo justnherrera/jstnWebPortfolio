@@ -4,13 +4,15 @@ var typed =  new Typed(".typing",{
     typeSpeed:100,
     BackSpeed:60,
     loop:true
-})
+});
+
 /////////////////////////////aside/////////////////////////////////
 const nav = document.querySelector(".nav"),
 navList = nav.querySelectorAll("li"),
 totalNavList = navList.length,
 allSection = document.querySelectorAll(".section"),
 totalSection = allSection.length;
+
 for(let i=0; i<totalNavList; i++)
 {
     const a = navList[i].querySelector("a");
@@ -26,38 +28,35 @@ for(let i=0; i<totalNavList; i++)
             }
             navList[j].querySelector("a").classList.remove("active");
         }
-        this.classList.add("active")
+        this.classList.add("active");
         showSection(this);
         if(window.innerWidth < 1200) {
             asideSectionTogglerBtn();
         }
-    })
+    });
 }
+
 function removeBackSection() {
-    for(let i=0; i<totalSection;i++)
-    {
+    for(let i=0; i<totalSection; i++) {
         allSection[i].classList.remove("back-section");
     }
 }
+
 function addBackSection(num) {
     allSection[num].classList.add("back-section");
 }
 
-
-function showSection(element)
-{
-    for(let i=0; i<totalSection;i++)
-    {
+function showSection(element) {
+    for(let i=0; i<totalSection; i++) {
         allSection[i].classList.remove("active");
     }
     const target = element.getAttribute("href").split("#")[1];
-    document.querySelector("#" + target).classList.add("active")
+    document.querySelector("#" + target).classList.add("active");
 }
 
 /////////////////////////contact me start////////////////////////////////////////
 function updateNav(element) {
-    for(let i=0; i<totalNavList; i++)
-    {
+    for(let i=0; i<totalNavList; i++) {
         navList[i].querySelector("a").classList.remove("active");
         const target = element.getAttribute("href").split("#")[1];
         if(target === navList[i].querySelector("a").getAttribute("href").split("#")[1]) {
@@ -65,24 +64,39 @@ function updateNav(element) {
         }
     }
 }
+
 document.querySelector(".contact-me").addEventListener("click", function() {
-    const sectionIndex  = this.getAttribute("data-section-index");
-    //console.log(sectionIndex);
+    const sectionIndex = this.getAttribute("data-section-index");
     showSection(this);
     updateNav(this);
     removeBackSection();
     addBackSection(sectionIndex);
-})
-//////////////////////////contact me  end/////////////////////////////////////////
+});
+//////////////////////////contact me end/////////////////////////////////////////
+
 const navTogglerBtn = document.querySelector(".nav-toggle"),
 aside = document.querySelector(".aside");
+
 navTogglerBtn.addEventListener("click", () => {
     asideSectionTogglerBtn();
-})
+});
+
 function asideSectionTogglerBtn() {
     aside.classList.toggle("open");
     navTogglerBtn.classList.toggle("open");
-    for(let i=0; i<totalSection; i++ ) {
+    for(let i=0; i<totalSection; i++) {
         allSection[i].classList.toggle("open");
     }
 }
+
+/////////////////////////// logo click event /////////////////////////////////
+const logo = document.querySelector(".logo a");
+
+logo.addEventListener("click", function(e) {
+    e.preventDefault();  // Prevent the default link behavior
+    document.querySelector("#home").scrollIntoView({ behavior: 'smooth' });
+    // Update the active link
+    removeBackSection();
+    updateNav(this);
+    showSection(this);
+});
